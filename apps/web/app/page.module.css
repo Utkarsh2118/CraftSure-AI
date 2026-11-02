@@ -1,0 +1,207 @@
+.main {
+  min-height: calc(100vh - var(--header-height));
+  padding-block: var(--space-12) var(--space-20);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 780px;
+  margin-bottom: var(--space-16);
+}
+
+.heroBadgeWrapper {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.heroTitle {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.heroAccent {
+  color: var(--color-brand);
+}
+
+.heroDescription {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 65ch;
+}
+
+.heroActions {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-brand);
+  color: #ffffff;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.primaryButton:hover {
+  opacity: 0.92;
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-surface-1);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-surface-2);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.secondaryButton:hover {
+  background-color: var(--color-surface-2);
+}
+
+.featuredSection {
+  margin-bottom: var(--space-16);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.sectionTitle {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.sectionSubtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1);
+}
+
+.viewAllLink {
+  color: var(--color-brand);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.craftsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6);
+}
+
+.craftCard {
+  background-color: var(--color-surface-1);
+  border: 1px solid var(--color-surface-2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.craftCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.craftName {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.craftCategory {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.craftDescription {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  flex-grow: 1;
+}
+
+.cardLink {
+  color: var(--color-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  margin-top: var(--space-2);
+}
+
+.assuranceSection {
+  margin-bottom: var(--space-16);
+}
+
+.assuranceCard {
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.assuranceIcon {
+  color: #059669;
+  flex-shrink: 0;
+  margin-top: var(--space-1);
+}
+
+.assuranceTitle {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  color: #065f46;
+  margin-bottom: var(--space-1);
+}
+
+.assuranceText {
+  font-size: var(--text-sm);
+  color: #047857;
+  line-height: var(--leading-relaxed);
+}
+
+@media (max-width: 640px) {
+  .heroTitle {
+    font-size: var(--text-3xl);
+  }
+}

@@ -1,0 +1,102 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+  max-width: 480px;
+}
+
+.code {
+  font-family: var(--font-display);
+  font-size: 6rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent-light);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-surface-2);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  color: var(--color-text-primary);
+}
+
+.description {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  max-width: 42ch;
+}
+
+.digest {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  max-width: none;
+}
+
+.digest code {
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  background-color: var(--color-surface-1);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--space-2);
+}
+
+.retryButton {
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-body);
+  transition: background-color var(--transition-fast);
+  min-height: 44px;
+}
+
+.retryButton:hover {
+  background-color: var(--color-brand-dark);
+}
+
+.retryButton:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+.homeLink {
+  padding: var(--space-3) var(--space-6);
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border: 1.5px solid var(--color-surface-2);
+  border-radius: var(--radius-md);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.homeLink:hover {
+  background-color: var(--color-surface-1);
+  border-color: var(--color-surface-3);
+}

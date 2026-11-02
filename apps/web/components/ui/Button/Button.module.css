@@ -1,0 +1,139 @@
+/* ── Button Base ─────────────────────────────────────────────────────────── */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  /* Prevent text selection on rapid clicks */
+  user-select: none;
+  /* Ensure minimum tap target (44px per WCAG) */
+  min-height: 44px;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+/* ── Variants ────────────────────────────────────────────────────────────── */
+.primary {
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse);
+  border-color: var(--color-brand);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--color-brand-dark);
+  border-color: var(--color-brand-dark);
+}
+
+.secondary {
+  background-color: transparent;
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--color-brand-light);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+
+.ghost:hover:not(:disabled) {
+  background-color: var(--color-surface-1);
+  color: var(--color-text-primary);
+}
+
+.destructive {
+  background-color: transparent;
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.destructive:hover:not(:disabled) {
+  background-color: var(--color-error-light);
+}
+
+/* ── Sizes ───────────────────────────────────────────────────────────────── */
+.sm {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  min-height: 36px;
+}
+
+.md {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+}
+
+.lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-lg);
+}
+
+/* ── States ──────────────────────────────────────────────────────────────── */
+.button:disabled,
+.button[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.loading {
+  pointer-events: none;
+}
+
+/* ── Icon Slots ──────────────────────────────────────────────────────────── */
+.iconLeft,
+.iconRight {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.label {
+  /* Allows icons to stay aligned if label wraps */
+  line-height: var(--leading-snug);
+}
+
+/* ── Spinner ─────────────────────────────────────────────────────────────── */
+.spinner {
+  display: block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 600ms linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    opacity: 0.5;
+  }
+}
