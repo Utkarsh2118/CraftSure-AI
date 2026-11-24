@@ -7,7 +7,7 @@ import type {
   CraftCategory,
 } from '@craftsure/shared-types';
 
-export const productsRouter = Router();
+export const productsRouter: Router = Router();
 
 // In-memory catalog of initial authentic demonstration products across UP districts
 const DEMO_PRODUCTS: Product[] = [

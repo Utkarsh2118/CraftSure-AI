@@ -33,9 +33,48 @@ export default function CheckoutPage() {
     shippingAddress: string;
   } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const orderId = `CS-UP-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
+    let orderId = `CS-UP-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
+
+    try {
+      const res = await fetch(
+        `${process.env['NEXT_PUBLIC_API_URL'] ?? 'http://localhost:4000/api'}/orders`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            buyerName: fullName,
+            buyerEmail: email,
+            buyerPhone: phone.replace(/\D/g, '') || '9876543210',
+            shippingAddress: {
+              line1: addressLine,
+              city,
+              state,
+              pincode: pincode.trim(),
+              country: 'India',
+            },
+            lineItems: items.map((item) => ({
+              productId: item.product.id,
+              quantity: item.quantity,
+              snapshotPriceInPaise: item.product.priceInPaise,
+              snapshotTitle: item.product.title,
+              snapshotImageUrl: item.product.images[0]?.url ?? null,
+            })),
+            paymentMethod,
+          }),
+        },
+      );
+      if (res.ok) {
+        const json = await res.json();
+        if (json.ok && json.data?.id) {
+          orderId = json.data.id;
+        }
+      }
+    } catch {
+      // Fallback
+    }
+
     setConfirmedOrder({
       orderId,
       totalPaid: grandTotalPaise,

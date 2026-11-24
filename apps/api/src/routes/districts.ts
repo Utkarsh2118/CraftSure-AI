@@ -3,7 +3,7 @@ import type { Request, Response } from 'express';
 import type { ApiResponse, PaginatedResponse, District } from '@craftsure/shared-types';
 import { SEED_DISTRICTS, SEED_CRAFT_DISTRICTS, SEED_CRAFTS } from '../db/data/upCatalogue';
 
-export const districtsRouter = Router();
+export const districtsRouter: Router = Router();
 
 // In-memory catalog mapping for high-performance retrieval and offline dev
 const districtsMap = new Map<string, District>();

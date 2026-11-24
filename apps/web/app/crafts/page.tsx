@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Search, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Search, ShieldCheck } from 'lucide-react';
 import { Header } from '@/components/layout/Header/Header';
 import { Badge } from '@/components/ui/Badge/Badge';
 import { CRAFTS, CRAFT_DISTRICT_LINKS, DISTRICTS } from '@/lib/data/catalogue';

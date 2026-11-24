@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { MapPin, ShieldCheck, ArrowRight, ExternalLink, Layers } from 'lucide-react';
+import { MapPin, ShieldCheck, ArrowRight, ExternalLink } from 'lucide-react';
 import { Header } from '@/components/layout/Header/Header';
 import { Badge } from '@/components/ui/Badge/Badge';
 import { DISTRICTS, getDistrictBySlug, getCraftsForDistrict } from '@/lib/data/catalogue';

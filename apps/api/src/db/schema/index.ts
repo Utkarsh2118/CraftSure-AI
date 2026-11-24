@@ -71,6 +71,15 @@ export const productStatusEnum = pgEnum('product_status', [
   'archived',
 ]);
 
+export const orderStatusEnum = pgEnum('order_status', [
+  'pending',
+  'confirmed',
+  'shipped',
+  'delivered',
+  'cancelled',
+  'refunded',
+]);
+
 export const craftTypeEnum = pgEnum('craft_type', ['chikankari', 'zardozi', 'kashida', 'phulkari']);
 
 // ── Users ─────────────────────────────────────────────────────────────────────
@@ -361,3 +370,58 @@ export const aiInferenceLogs = pgTable(
     imageHashIdx: index('ai_inference_image_hash_idx').on(table.requestImageHash),
   }),
 );
+
+// ── Orders (Demonstration & Escrow Orders) ───────────────────────────────────
+
+export const orders = pgTable(
+  'orders',
+  {
+    id: text('id').primaryKey(), // e.g. 'CS-UP-2026-123456'
+    buyerId: uuid('buyer_id').references(() => users.id, { onDelete: 'set null' }),
+    buyerName: text('buyer_name').notNull(),
+    buyerEmail: text('buyer_email').notNull(),
+    buyerPhone: text('buyer_phone').notNull(),
+    status: orderStatusEnum('status').notNull().default('confirmed'),
+    // Shipping address
+    shippingAddressLine1: text('shipping_address_line1').notNull(),
+    shippingAddressLine2: text('shipping_address_line2'),
+    shippingCity: text('shipping_city').notNull(),
+    shippingState: text('shipping_state').notNull().default('Uttar Pradesh'),
+    shippingPincode: text('shipping_pincode').notNull(),
+    shippingCountry: text('shipping_country').notNull().default('India'),
+    // Commercials in integer paise
+    subtotalInPaise: integer('subtotal_in_paise').notNull(),
+    deliveryInPaise: integer('delivery_in_paise').notNull().default(0),
+    totalInPaise: integer('total_in_paise').notNull(),
+    paymentMethod: text('payment_method').notNull().default('upi'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    buyerIdx: index('orders_buyer_idx').on(table.buyerId),
+    statusIdx: index('orders_status_idx').on(table.status),
+    createdAtIdx: index('orders_created_at_idx').on(table.createdAt),
+  }),
+);
+
+// ── Order Items ───────────────────────────────────────────────────────────────
+
+export const orderItems = pgTable(
+  'order_items',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    orderId: text('order_id')
+      .notNull()
+      .references(() => orders.id, { onDelete: 'cascade' }),
+    productId: text('product_id'),
+    quantity: integer('quantity').notNull().default(1),
+    snapshotPriceInPaise: integer('snapshot_price_in_paise').notNull(),
+    snapshotTitle: text('snapshot_title').notNull(),
+    snapshotImageUrl: text('snapshot_image_url'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    orderIdx: index('order_items_order_idx').on(table.orderId),
+  }),
+);
+

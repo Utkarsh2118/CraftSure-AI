@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { MapPin, ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
+import { MapPin, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Header } from '@/components/layout/Header/Header';
 import { Badge } from '@/components/ui/Badge/Badge';
 import styles from './page.module.css';

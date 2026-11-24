@@ -1,13 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import {
   Sparkles,
   UploadCloud,
   ShieldAlert,
-  ShieldCheck,
-  Check,
   ArrowRight,
   Info,
 } from 'lucide-react';
@@ -40,6 +38,34 @@ const SAMPLE_QUERIES: { label: string; query: string; isOod?: boolean }[] = [
 export default function VisualSearchPage() {
   const [selectedSample, setSelectedSample] = useState<string>('lucknow_chikankari');
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setIsSearching(true);
+    const fname = file.name.toLowerCase();
+    let query = 'lucknow_chikankari';
+    if (fname.includes('banarasi') || fname.includes('silk')) {
+      query = 'banarasi_silk';
+    } else if (fname.includes('brass') || fname.includes('metal')) {
+      query = 'moradabad_brass';
+    } else if (fname.includes('terracotta') || fname.includes('clay')) {
+      query = 'gorakhpur_terracotta';
+    } else if (fname.includes('wood') || fname.includes('carv')) {
+      query = 'saharanpur_wood';
+    } else if (
+      fname.includes('synthetic') ||
+      fname.includes('plastic') ||
+      fname.includes('machine')
+    ) {
+      query = 'non_craft_synthetic';
+    }
+    setSelectedSample(query);
+    setTimeout(() => {
+      setIsSearching(false);
+    }, 400);
+  };
 
   // Compute visual search result based on query
   const getResult = (query: string): DemoMatch => {
@@ -150,15 +176,23 @@ export default function VisualSearchPage() {
           </div>
 
           {/* Interactive Upload Area */}
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileUpload}
+            accept="image/jpeg,image/png,image/webp"
+            style={{ display: 'none' }}
+            aria-hidden="true"
+          />
           <div
             className={styles.uploadZone}
             role="button"
             tabIndex={0}
             aria-label="Upload handicraft photo for visual matching"
-            onClick={() => handleSelectSample('lucknow_chikankari')}
+            onClick={() => fileInputRef.current?.click()}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
-                handleSelectSample('lucknow_chikankari');
+                fileInputRef.current?.click();
               }
             }}
           >
