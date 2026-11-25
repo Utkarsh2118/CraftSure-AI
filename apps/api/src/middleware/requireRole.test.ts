@@ -13,7 +13,11 @@ describe('requireRole middleware', () => {
     // Mock auth middleware
     app.use((req: Request, _res: Response, next) => {
       if (userRole) {
-        (req as Request & { user?: { role: UserRole } }).user = { role: userRole };
+        req.user = {
+          id: 'test-user',
+          email: 'test@example.com',
+          role: userRole,
+        };
       }
       next();
     });

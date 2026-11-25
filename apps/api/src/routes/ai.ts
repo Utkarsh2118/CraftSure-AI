@@ -4,14 +4,13 @@ import type {
   ApiResponse,
   VisualSearchResponse,
   VisualSearchMatch,
-  Product,
 } from '@craftsure/shared-types';
 import { SEED_CRAFTS, SEED_DISTRICTS } from '../db/data/upCatalogue';
 
-export const aiRouter = Router();
+export const aiRouter: Router = Router();
 
 // Pilot craft knowledge base for visual matching demonstration
-const PILOT_CRAFT_SLUGS = [
+export const PILOT_CRAFT_SLUGS = [
   'lucknow-chikankari',
   'banarasi-silk',
   'moradabad-brassware',

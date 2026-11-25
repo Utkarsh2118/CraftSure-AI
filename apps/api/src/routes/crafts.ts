@@ -8,7 +8,7 @@ import type {
 } from '@craftsure/shared-types';
 import { SEED_CRAFTS, SEED_CRAFT_DISTRICTS, SEED_DISTRICTS } from '../db/data/upCatalogue';
 
-export const craftsRouter = Router();
+export const craftsRouter: Router = Router();
 
 const craftsMap = new Map<string, CraftDefinition>();
 

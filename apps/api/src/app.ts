@@ -5,8 +5,13 @@ import { districtsRouter } from './routes/districts';
 import { craftsRouter } from './routes/crafts';
 import { productsRouter } from './routes/products';
 import { aiRouter } from './routes/ai';
+import { authRouter } from './routes/auth';
+import { ordersRouter } from './routes/orders';
+import { artisansRouter } from './routes/artisans';
+import { adminRouter } from './routes/admin';
+import { authenticateToken } from './middleware/authenticate';
 
-export function createApp() {
+export function createApp(): express.Express {
   const app = express();
 
   // ── Middleware ───────────────────────────────────────────────────────────
@@ -28,6 +33,9 @@ export function createApp() {
     next();
   });
 
+  // Extract authentication token (if present)
+  app.use(authenticateToken);
+
   // ── Health check ─────────────────────────────────────────────────────────
   app.get('/health', (_req: Request, res: Response) => {
     const body: ApiResponse<{ status: string; timestamp: string }> = {
@@ -42,6 +50,10 @@ export function createApp() {
   app.use('/api/crafts', craftsRouter);
   app.use('/api/products', productsRouter);
   app.use('/api/ai', aiRouter);
+  app.use('/api/auth', authRouter);
+  app.use('/api/orders', ordersRouter);
+  app.use('/api/artisans', artisansRouter);
+  app.use('/api/admin', adminRouter);
 
   // ── 404 handler ──────────────────────────────────────────────────────────
   app.use((_req: Request, res: Response) => {
@@ -53,7 +65,6 @@ export function createApp() {
   });
 
   // ── Global error handler ─────────────────────────────────────────────────
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     console.error('[API Error]', err);
     const body: ApiResponse<never> = {

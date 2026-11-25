@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import { AlertCircle, RefreshCw } from 'lucide-react';
 import styles from './ErrorMessage.module.css';
 
