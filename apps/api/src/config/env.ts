@@ -12,6 +12,9 @@ export interface AppConfig {
   readonly SUPABASE_URL: string;
   readonly SUPABASE_ANON_KEY: string;
   readonly SUPABASE_SERVICE_ROLE_KEY: string;
+  readonly RAZORPAY_KEY_ID: string;
+  readonly RAZORPAY_KEY_SECRET: string;
+  readonly RAZORPAY_WEBHOOK_SECRET: string;
 }
 
 export const env: AppConfig = {
@@ -22,5 +25,8 @@ export const env: AppConfig = {
   SUPABASE_URL: process.env['SUPABASE_URL'] ?? '',
   SUPABASE_ANON_KEY: process.env['SUPABASE_ANON_KEY'] ?? '',
   SUPABASE_SERVICE_ROLE_KEY: process.env['SUPABASE_SERVICE_ROLE_KEY'] ?? '',
+  RAZORPAY_KEY_ID: process.env['RAZORPAY_KEY_ID'] ?? '',
+  RAZORPAY_KEY_SECRET: process.env['RAZORPAY_KEY_SECRET'] ?? '',
+  RAZORPAY_WEBHOOK_SECRET: process.env['RAZORPAY_WEBHOOK_SECRET'] ?? '',
 };
 

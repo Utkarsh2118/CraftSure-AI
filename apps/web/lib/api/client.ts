@@ -14,6 +14,10 @@ import type {
   GiAuthorizationStatus,
   User,
   UserRole,
+  CreatePaymentOrderRequest,
+  CreatePaymentOrderResponse,
+  VerifyPaymentRequest,
+  VerifyPaymentResponse,
 } from '@craftsure/shared-types';
 import {
   DISTRICTS,
@@ -262,6 +266,52 @@ export const api = {
   },
 
   // ── Orders API ──────────────────────────────────────────────────────────────
+  async createPaymentOrder(
+    payload: CreatePaymentOrderRequest,
+    token?: string,
+  ): Promise<CreatePaymentOrderResponse> {
+    return fetchWithFallback<CreatePaymentOrderResponse>(
+      `${API_BASE}/payments/create-order`,
+      () => ({
+        orderId: `CS-UP-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`,
+        razorpayOrderId: `order_mock_${Math.random().toString(36).substring(2, 12)}`,
+        amountInPaise: 285000,
+        currency: 'INR',
+        keyId: process.env['NEXT_PUBLIC_RAZORPAY_KEY_ID'] || 'rzp_test_mock_key',
+        buyerName: payload.buyerName,
+        buyerEmail: payload.buyerEmail,
+        buyerPhone: payload.buyerPhone,
+      }),
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        token,
+      },
+    );
+  },
+
+  async verifyPayment(
+    payload: VerifyPaymentRequest,
+    token?: string,
+  ): Promise<VerifyPaymentResponse> {
+    return fetchWithFallback<VerifyPaymentResponse>(
+      `${API_BASE}/payments/verify`,
+      () => ({
+        success: true,
+        orderId: payload.orderId,
+        status: 'confirmed',
+        paymentStatus: 'paid',
+      }),
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        token,
+      },
+    );
+  },
+
   async createOrder(payload: CreateOrderInput, token?: string): Promise<Order> {
     return fetchWithFallback<Order>(
       `${API_BASE}/orders`,

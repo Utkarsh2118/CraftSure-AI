@@ -394,6 +394,11 @@ export const orders = pgTable(
     deliveryInPaise: integer('delivery_in_paise').notNull().default(0),
     totalInPaise: integer('total_in_paise').notNull(),
     paymentMethod: text('payment_method').notNull().default('upi'),
+    paymentStatus: text('payment_status').notNull().default('pending'),
+    razorpayOrderId: text('razorpay_order_id'),
+    razorpayPaymentId: text('razorpay_payment_id'),
+    razorpaySignature: text('razorpay_signature'),
+    paymentVerifiedAt: timestamp('payment_verified_at', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
@@ -401,6 +406,7 @@ export const orders = pgTable(
     buyerIdx: index('orders_buyer_idx').on(table.buyerId),
     statusIdx: index('orders_status_idx').on(table.status),
     createdAtIdx: index('orders_created_at_idx').on(table.createdAt),
+    razorpayOrderIdx: index('orders_razorpay_order_idx').on(table.razorpayOrderId),
   }),
 );
 

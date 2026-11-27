@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Search, Heart, ShoppingBag, Menu, X } from 'lucide-react';
+import { useAuth } from '@/lib/auth/AuthContext';
 import styles from './Header.module.css';
 
 /**
@@ -10,6 +11,7 @@ import styles from './Header.module.css';
  */
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { profile, signOut } = useAuth();
 
   return (
     <header className={styles.header} role="banner">
@@ -52,9 +54,23 @@ export function Header() {
           <Link href="/cart" className={styles.iconButton} aria-label="Shopping cart">
             <ShoppingBag size={20} aria-hidden="true" />
           </Link>
-          <Link href="/auth/sign-in" className={styles.signIn}>
-            Sign in
-          </Link>
+          {profile ? (
+            <div className={styles.userProfile}>
+              <span className={styles.userName}>{profile.displayName.split(' ')[0]}</span>
+              <button
+                type="button"
+                onClick={() => void signOut()}
+                className={styles.signOutBtn}
+                aria-label="Sign out"
+              >
+                Sign out
+              </button>
+            </div>
+          ) : (
+            <Link href="/auth/sign-in" className={styles.signIn}>
+              Sign in
+            </Link>
+          )}
         </div>
 
         {/* Mobile menu trigger */}
@@ -111,13 +127,27 @@ export function Header() {
           >
             About
           </Link>
-          <Link
-            href="/auth/sign-in"
-            className={styles.navLink}
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Sign in
-          </Link>
+          {profile ? (
+            <button
+              type="button"
+              className={styles.navLink}
+              style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', padding: 0 }}
+              onClick={() => {
+                void signOut();
+                setMobileMenuOpen(false);
+              }}
+            >
+              Sign out ({profile.displayName.split(' ')[0]})
+            </button>
+          ) : (
+            <Link
+              href="/auth/sign-in"
+              className={styles.navLink}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Sign in
+            </Link>
+          )}
         </nav>
       )}
     </header>

@@ -11,9 +11,11 @@ import {
   Mail,
   LockKeyhole,
   Sparkles,
+  AlertCircle,
 } from 'lucide-react';
 
 import { Header } from '@/components/layout/Header/Header';
+import { GoogleButton } from '@/components/auth/GoogleButton';
 import type { UserRole } from '@craftsure/shared-types';
 import styles from './page.module.css';
 
@@ -22,6 +24,7 @@ export default function SignInPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRole, setSelectedRole] = useState<UserRole>('buyer');
+  const [oauthError, setOauthError] = useState<string | null>(null);
 
   const [signedInUser, setSignedInUser] = useState<{
     email: string;
@@ -114,6 +117,23 @@ export default function SignInPage() {
                     <p className={styles.formSubtitle}>
                       Enter your details to continue your journey.
                     </p>
+                  </div>
+
+                  {oauthError && (
+                    <div className={styles.errorMessage} role="alert">
+                      <AlertCircle size={18} />
+                      <span>{oauthError}</span>
+                    </div>
+                  )}
+
+                  <GoogleButton
+                    label="Continue with Google"
+                    returnUrl="/browse"
+                    onError={(err) => setOauthError(err)}
+                  />
+
+                  <div className={styles.divider}>
+                    <span>or continue with email</span>
                   </div>
 
                   <form

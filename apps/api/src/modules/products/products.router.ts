@@ -10,7 +10,7 @@ import type {
 export const productsRouter: Router = Router();
 
 // In-memory catalog of initial authentic demonstration products across UP districts
-const DEMO_PRODUCTS: Product[] = [
+export const DEMO_PRODUCTS: Product[] = [
   {
     id: 'prod-chikankari-kurta-01',
     artisanId: 'artisan-lucknow-01',

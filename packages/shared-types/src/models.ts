@@ -207,6 +207,8 @@ export interface Product {
 
 // ── Order ─────────────────────────────────────────────────────────────────────
 
+export type PaymentStatus = 'pending' | 'paid' | 'failed' | 'refunded';
+
 export interface OrderLineItem {
   readonly productId: string;
   readonly quantity: number;
@@ -223,6 +225,11 @@ export interface Order {
   readonly status: OrderStatus;
   readonly shippingAddress: Address;
   readonly totalInPaise: number;
+  readonly paymentMethod?: string | undefined;
+  readonly paymentStatus?: PaymentStatus | undefined;
+  readonly razorpayOrderId?: string | null | undefined;
+  readonly razorpayPaymentId?: string | null | undefined;
+  readonly paymentVerifiedAt?: string | null | undefined;
   readonly createdAt: string;
   readonly updatedAt: string;
 }

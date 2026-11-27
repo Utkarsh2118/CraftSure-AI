@@ -86,3 +86,51 @@ export interface VisualSearchResponse {
   readonly rejectionReason?:
     'low_confidence' | 'out_of_distribution' | 'ambiguous_visual_features' | undefined;
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Razorpay Payments
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface CreatePaymentOrderRequest {
+  readonly buyerName: string;
+  readonly buyerEmail: string;
+  readonly buyerPhone: string;
+  readonly shippingAddress: {
+    readonly line1: string;
+    readonly line2?: string | undefined;
+    readonly city: string;
+    readonly state: string;
+    readonly pincode: string;
+    readonly country?: string | undefined;
+  };
+  readonly lineItems: Array<{
+    readonly productId: string;
+    readonly quantity: number;
+  }>;
+  readonly paymentMethod?: string | undefined;
+}
+
+export interface CreatePaymentOrderResponse {
+  readonly orderId: string;
+  readonly razorpayOrderId: string;
+  readonly amountInPaise: number;
+  readonly currency: string;
+  readonly keyId: string;
+  readonly buyerName: string;
+  readonly buyerEmail: string;
+  readonly buyerPhone: string;
+}
+
+export interface VerifyPaymentRequest {
+  readonly orderId: string;
+  readonly razorpayOrderId: string;
+  readonly razorpayPaymentId: string;
+  readonly razorpaySignature: string;
+}
+
+export interface VerifyPaymentResponse {
+  readonly success: boolean;
+  readonly orderId: string;
+  readonly status: string;
+  readonly paymentStatus: string;
+}
