@@ -80,7 +80,7 @@ export default function HomePage() {
               </h1>
 
               <p className={styles.heroDescription}>
-                Discover the timeless beauty of Uttar Pradesh's handmade
+                Discover the timeless beauty of Uttar Pradesh&apos;s handmade
                 treasures. Explore authentic crafts, meet artisan communities,
                 and bring generations of creativity into your home.
               </p>
