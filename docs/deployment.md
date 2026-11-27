@@ -82,3 +82,17 @@ This document describes the deployment architecture, environment configuration, 
 3. **Deploy Backend API** and verify `/health` returns `{"ok":true,"data":{"status":"ok"}}`.
 4. **Deploy AI Service** and verify `/health` returns `{"status":"ok"}`.
 5. **Deploy Frontend Web Application** and verify SSG routes render.
+
+---
+
+## 6. Continuous Integration (CI/CD Pipeline)
+
+Automated testing and quality checks run on every commit and pull request to `main` via GitHub Actions (`.github/workflows/ci.yml`):
+
+1. **Monorepo Job**:
+   - Environment: Ubuntu Latest, Node.js 20, pnpm 9.15.4.
+   - Tasks: Frozen lockfile install, workspace typechecking (`pnpm -r typecheck`), linting (`pnpm -r lint`), integration test suite (`pnpm -r test`), and production SSG page compilation (`pnpm -r build`).
+2. **AI Inference Service Job**:
+   - Environment: Ubuntu Latest, Python 3.11 with pip caching.
+   - Tasks: Dependency installation (`requirements.txt`), unit test suite, and OOD rejection tests (`pytest` and `test_ai_service.py`).
+
