@@ -1,7 +1,13 @@
-from fastapi import FastAPI, File, UploadFile, Form
+"""CraftSure AI Visual Discovery Inference Service Entrypoint.
+
+Organized modular FastAPI application serving visual similarity inference.
+"""
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Optional
-from service import match_craft_image, VisualSearchResponse, PILOT_CRAFTS
+from routes.health import router as health_router
+from routes.crafts import router as crafts_router
+from routes.predict import router as predict_router
 
 app = FastAPI(
     title="CraftSure AI Visual Discovery Inference Service",
@@ -17,32 +23,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/health")
-def health_check():
-    return {"status": "ok", "service": "craftsure-ai-inference", "version": "0.4.0"}
-
-@app.get("/pilot-crafts")
-def list_pilot_crafts():
-    return {"ok": True, "data": list(PILOT_CRAFTS.values())}
-
-@app.post("/predict", response_model=VisualSearchResponse)
-async def predict_craft(
-    file: Optional[UploadFile] = File(None),
-    sampleQuery: Optional[str] = Form(None),
-    categoryHint: Optional[str] = Form(None),
-):
-    image_bytes = None
-    filename = None
-    if file:
-        image_bytes = await file.read()
-        filename = file.filename
-
-    return match_craft_image(
-        image_bytes=image_bytes,
-        filename=filename,
-        category_hint=categoryHint,
-        sample_query=sampleQuery,
-    )
+# Register domain routers
+app.include_router(health_router)
+app.include_router(crafts_router)
+app.include_router(predict_router)
 
 if __name__ == "__main__":
     import uvicorn

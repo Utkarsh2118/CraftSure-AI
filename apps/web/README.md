@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# @craftsure/web — Frontend Application
 
-## Getting Started
+Next.js 16 App Router frontend for CraftSure AI, showcasing regional handicrafts across 75 districts of Uttar Pradesh with authentic artisan discovery, district heritage catalogues, and verified GI credentials.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📁 Directory Structure
+
+```
+apps/web/
+├── app/                        # App Router Pages & Layouts
+│   ├── about/                  # About & mission
+│   ├── admin/                  # Administrative verification dashboard
+│   ├── artisan/                # Artisan onboarding & registry application
+│   ├── auth/                   # Sign-in & session flows
+│   ├── browse/                 # Multi-facet craft & district catalogue browser
+│   ├── cart/                   # Shopping cart
+│   ├── checkout/               # Resilient checkout with integer paise totals
+│   ├── crafts/                 # Craft profile dynamic routes (/crafts/[slug])
+│   ├── districts/              # District dynamic routes (/districts/[slug])
+│   ├── products/               # Product detail routes (/products/[id])
+│   ├── saved/                  # Saved & bookmarked crafts
+│   ├── search/                 # Visual and text craft search
+│   ├── layout.tsx              # Root layout with metadata and styling
+│   └── page.tsx                # Homepage featuring ODOP heritage hero & crafts
+├── components/                 # Reusable Presentation Components
+│   ├── layout/                 # Structural UI (Header, Navigation)
+│   └── ui/                     # Primitives (Badge, Button, EmptyState, Input, Skeleton)
+├── features/                   # Domain Feature Slices
+│   ├── auth/                   # Authentication & session token management
+│   ├── crafts/                 # Craft definitions & queries
+│   ├── artisans/               # Artisan registration & profile queries
+│   ├── products/               # Product catalogue helpers & ProductActions component
+│   ├── orders/                 # Order creation & currency utilities
+│   └── admin/                  # Admin review decisions & audit trail
+├── lib/                        # Foundation Libraries
+│   ├── api/                    # API client with timeout and offline fallbacks
+│   ├── data/                   # Verified UP ODOP static catalogues & seed data
+│   ├── store/                  # Zustand global state (cart, wishlist)
+│   └── utils/                  # Currency formatting, date formatting, classname helpers
+└── public/                     # Static media assets & images
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔧 Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Start Next.js local development server (port 3000)
+pnpm dev
 
-## Learn More
+# Build production static pages & bundle
+pnpm build
 
-To learn more about Next.js, take a look at the following resources:
+# Start production server
+pnpm start
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Run TypeScript static typechecker
+pnpm typecheck
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Run ESLint validation
+pnpm lint
 
-## Deploy on Vercel
+# Run Vitest component & unit tests
+pnpm test
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 Environment Configuration
+
+Create `.env.local` based on `.env.example`:
+
+```env
+# URL of the backend API
+NEXT_PUBLIC_API_URL=http://localhost:4000/api
+
+# Enable mock demo logins for testing
+NEXT_PUBLIC_ENABLE_DEMO_AUTH=true
+```
+
+---
+
+## 🎨 Design System & UI Conventions
+
+- **Colors & Tokens**: CSS custom properties defined in `app/globals.css`.
+- **CSS Modules**: Component-scoped styles in `*.module.css` for isolation and zero runtime overhead.
+- **Accessibility (a11y)**: Semantic HTML elements, ARIA attributes, keyboard navigation, and explicit color contrast compliance.

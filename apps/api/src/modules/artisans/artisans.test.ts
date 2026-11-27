@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import request from 'supertest';
-import { createApp } from '../app';
+import { createApp } from '../../app';
 
 describe('Artisans API routes with PostgreSQL Persistence', () => {
   const app = createApp();
@@ -48,30 +48,38 @@ describe('Artisans API routes with PostgreSQL Persistence', () => {
   });
 
   it('rejects invalid artisan application with validation details', async () => {
-    const res = await request(app).post('/api/artisans/apply').send({
-      shopName: 'X', // Too short (min 2)
-      districtSlug: '',
-    });
+    const res = await request(app)
+      .post('/api/artisans/apply')
+      .send({
+        shopName: '', // Min length 2 validation
+        districtSlug: 'varanasi',
+        craftSpecialization: '',
+      });
 
     expect(res.status).toBe(400);
     expect(res.body.ok).toBe(false);
     expect(res.body.error.code).toBe('VALIDATION_ERROR');
+    expect(res.body.error.details).toHaveProperty('shopName');
   });
 
   it('returns approved artisans from GET /api/artisans', async () => {
     const res = await request(app).get('/api/artisans');
+
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
     expect(Array.isArray(res.body.data)).toBe(true);
     expect(res.body.data.length).toBeGreaterThan(0);
-    for (const artisan of res.body.data) {
-      expect(artisan.approvalStatus).toBe('approved');
-    }
+    // Every artisan listed in the public directory must be approved
+    expect(res.body.data.every((a: { approvalStatus: string }) => a.approvalStatus === 'approved')).toBe(
+      true,
+    );
   });
 
-  it('returns 404 for non-existent artisan ID', async () => {
-    const res = await request(app).get('/api/artisans/unknown-artisan-id');
+  it('returns 404 for unknown artisan identifier', async () => {
+    const res = await request(app).get('/api/artisans/unknown-id-xyz');
+
     expect(res.status).toBe(404);
+    expect(res.body.ok).toBe(false);
     expect(res.body.error.code).toBe('ARTISAN_NOT_FOUND');
   });
 });
