@@ -26,10 +26,22 @@ authRouter.get('/me', requireAuth, (req: Request, res: Response) => {
 
 /**
  * POST /api/auth/demo-login
- * Issues deterministic demo tokens for testing and front-end role switching.
- * Role originates from database/verified authority, never client-forged.
+ * Issues deterministic demo tokens for testing.
+ * Strictly permitted ONLY when NODE_ENV === 'test'.
  */
 authRouter.post('/demo-login', (req: Request, res: Response) => {
+  if (process.env['NODE_ENV'] !== 'test') {
+    const errorBody: ApiResponse<never> = {
+      ok: false,
+      error: {
+        code: 'FORBIDDEN',
+        message: 'Demo authentication is only permitted in the test environment.',
+      },
+    };
+    res.status(403).json(errorBody);
+    return;
+  }
+
   const parseResult = loginSchema.safeParse(req.body);
   if (!parseResult.success) {
     const errorBody: ApiResponse<never> = {
@@ -45,9 +57,10 @@ authRouter.post('/demo-login', (req: Request, res: Response) => {
   }
 
   const { role, email } = parseResult.data;
-  const token = `demo-${role}`;
+  // Standardized hyphenated demo token (e.g. demo-store-admin, demo-platform-admin)
+  const token = `demo-${role.replace('_', '-')}`;
   const user = {
-    id: `user-${role}-01`,
+    id: `user-${role.replace('_', '-')}-01`,
     email: email ?? `${role}@craftsure.ai`,
     role: role as UserRole,
     displayName: `${role.replace('_', ' ').toUpperCase()} User`,

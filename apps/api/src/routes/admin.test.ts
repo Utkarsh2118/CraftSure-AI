@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 import { createApp } from '../app';
 
-describe('Admin Verification & Audit API routes', () => {
+describe('Admin Verification & Audit API routes with Persistence', () => {
   const app = createApp();
 
   it('rejects unauthenticated requests with 401', async () => {
@@ -19,6 +19,32 @@ describe('Admin Verification & Audit API routes', () => {
     expect(res.status).toBe(403);
     expect(res.body.ok).toBe(false);
     expect(res.body.error.code).toBe('FORBIDDEN');
+  });
+
+  it('rejects invalid review decision payload with 400', async () => {
+    const res = await request(app)
+      .post('/api/admin/verifications/artisan-lucknow-01/decision')
+      .set('Authorization', 'Bearer demo-store-admin')
+      .send({
+        verificationTier: 'invalid-tier-name',
+      });
+
+    expect(res.status).toBe(400);
+    expect(res.body.ok).toBe(false);
+    expect(res.body.error.code).toBe('VALIDATION_ERROR');
+  });
+
+  it('returns 404 when deciding on non-existent artisan', async () => {
+    const res = await request(app)
+      .post('/api/admin/verifications/artisan-non-existent/decision')
+      .set('Authorization', 'Bearer demo-store-admin')
+      .send({
+        approvalStatus: 'approved',
+      });
+
+    expect(res.status).toBe(404);
+    expect(res.body.ok).toBe(false);
+    expect(res.body.error.code).toBe('ARTISAN_NOT_FOUND');
   });
 
   it('allows store_admin to review verifications and record audit log', async () => {
@@ -53,5 +79,6 @@ describe('Admin Verification & Audit API routes', () => {
     expect(auditRes.status).toBe(200);
     expect(auditRes.body.ok).toBe(true);
     expect(auditRes.body.data.length).toBeGreaterThan(0);
+    expect(auditRes.body.data[0].action).toBe('UPDATE_ARTISAN_VERIFICATION');
   });
 });

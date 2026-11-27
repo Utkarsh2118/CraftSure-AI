@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ShieldCheck, Upload, CheckCircle2, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Upload, CheckCircle2, ArrowRight, AlertCircle } from 'lucide-react';
 import { Header } from '@/components/layout/Header/Header';
 import { DISTRICTS } from '@/lib/data/catalogue';
+import { api } from '@/lib/api/client';
+import type { ArtisanProfile } from '@craftsure/shared-types';
 import styles from './page.module.css';
 
 export default function ArtisanApplyPage() {
@@ -16,10 +18,34 @@ export default function ArtisanApplyPage() {
   const [hasGiAuth, setHasGiAuth] = useState(false);
   const [giNumber, setGiNumber] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [registeredProfile, setRegisteredProfile] = useState<ArtisanProfile | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const profile = await api.registerArtisan({
+        shopName,
+        bio: `Generational artisan workshop practicing ${craftSpecialization} in ${districtSlug}.`,
+        districtSlug,
+        clusterOrVillage: clusterOrVillage || undefined,
+        craftSpecialization,
+        artisanPehchanCardNumber: pehchanCard || undefined,
+        hasGiAuth,
+        giAuthorizedUserNumber: giNumber || undefined,
+      });
+
+      setRegisteredProfile(profile);
+      setIsSubmitted(true);
+    } catch (err) {
+      setErrorMessage((err as Error).message || 'Failed to submit artisan application.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -45,6 +71,13 @@ export default function ArtisanApplyPage() {
                 Your Pehchan card {pehchanCard ? `(${pehchanCard})` : ''} and workshop credentials will be
                 reviewed within 2 business days.
               </p>
+              {registeredProfile && (
+                <div style={{ margin: 'var(--space-3) 0', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                  Registration ID: <code>{registeredProfile.id}</code> • Initial Tier:{' '}
+                  <code>{registeredProfile.verificationTier}</code> • GI Status:{' '}
+                  <code>{registeredProfile.giAuthorizationStatus}</code>
+                </div>
+              )}
               <div className={styles.noticeBox}>
                 <ShieldCheck size={20} style={{ color: 'var(--color-primary)', flexShrink: 0 }} />
                 <span>
@@ -58,6 +91,25 @@ export default function ArtisanApplyPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className={styles.form}>
+              {errorMessage && (
+                <div
+                  role="alert"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    padding: '12px 16px',
+                    background: '#fef2f2',
+                    border: '1px solid #fecaca',
+                    borderRadius: 8,
+                    color: '#b91c1c',
+                    marginBottom: 16,
+                  }}
+                >
+                  <AlertCircle size={18} />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
               <section className={styles.formSection}>
                 <h2 className={styles.sectionHeading}>1. Workshop & Craft Information</h2>
                 <div className={styles.fieldGroup}>
@@ -185,8 +237,8 @@ export default function ArtisanApplyPage() {
               </section>
 
               <div className={styles.submitRow}>
-                <button type="submit" className={styles.submitBtn}>
-                  Submit Application for Audit
+                <button type="submit" disabled={isSubmitting} className={styles.submitBtn}>
+                  {isSubmitting ? 'Submitting Application...' : 'Submit Application for Audit'}
                 </button>
               </div>
             </form>

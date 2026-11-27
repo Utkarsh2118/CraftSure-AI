@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, ArrowRight, AlertCircle } from 'lucide-react';
 import { Header } from '@/components/layout/Header/Header';
 import { useCartStore } from '@/lib/store/cart';
 import { formatPaise } from '@/lib/utils/currency';
+import { api } from '@/lib/api/client';
 import styles from './page.module.css';
 
 export default function CheckoutPage() {
@@ -24,6 +25,8 @@ export default function CheckoutPage() {
   const [state, setState] = useState('Uttar Pradesh');
   const [pincode, setPincode] = useState('211001');
   const [paymentMethod, setPaymentMethod] = useState<'upi' | 'card' | 'cod'>('upi');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Confirmation state
   const [confirmedOrder, setConfirmedOrder] = useState<{
@@ -35,53 +38,65 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
+
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (cleanPhone.length < 10) {
+      setErrorMessage('Please provide a valid 10-digit mobile number.');
+      return;
+    }
+
+    const cleanPincode = pincode.trim();
+    if (!/^\d{6}$/.test(cleanPincode)) {
+      setErrorMessage('Please enter a valid 6-digit Indian postal PIN code.');
+      return;
+    }
+
+    if (items.length === 0) {
+      setErrorMessage('Your cart is empty. Please add items before placing an order.');
+      return;
+    }
+
+    setIsSubmitting(true);
     let orderId = `CS-UP-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
 
     try {
-      const res = await fetch(
-        `${process.env['NEXT_PUBLIC_API_URL'] ?? 'http://localhost:4000/api'}/orders`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            buyerName: fullName,
-            buyerEmail: email,
-            buyerPhone: phone.replace(/\D/g, '') || '9876543210',
-            shippingAddress: {
-              line1: addressLine,
-              city,
-              state,
-              pincode: pincode.trim(),
-              country: 'India',
-            },
-            lineItems: items.map((item) => ({
-              productId: item.product.id,
-              quantity: item.quantity,
-              snapshotPriceInPaise: item.product.priceInPaise,
-              snapshotTitle: item.product.title,
-              snapshotImageUrl: item.product.images[0]?.url ?? null,
-            })),
-            paymentMethod,
-          }),
+      const order = await api.createOrder({
+        buyerName: fullName.trim(),
+        buyerEmail: email.trim(),
+        buyerPhone: cleanPhone,
+        shippingAddress: {
+          line1: addressLine.trim(),
+          city: city.trim(),
+          state: state.trim(),
+          pincode: cleanPincode,
+          country: 'India',
         },
-      );
-      if (res.ok) {
-        const json = await res.json();
-        if (json.ok && json.data?.id) {
-          orderId = json.data.id;
-        }
+        lineItems: items.map((item) => ({
+          productId: item.product.id,
+          quantity: item.quantity,
+          snapshotPriceInPaise: item.product.priceInPaise,
+          snapshotTitle: item.product.title,
+          snapshotImageUrl: item.product.images[0]?.url ?? null,
+        })),
+        paymentMethod,
+      });
+      if (order?.id) {
+        orderId = order.id;
       }
-    } catch {
-      // Fallback
-    }
 
-    setConfirmedOrder({
-      orderId,
-      totalPaid: grandTotalPaise,
-      itemCount: items.reduce((sum, item) => sum + item.quantity, 0),
-      shippingAddress: `${addressLine}, ${city}, ${state} - ${pincode}`,
-    });
-    clearCart();
+      setConfirmedOrder({
+        orderId,
+        totalPaid: grandTotalPaise,
+        itemCount: items.reduce((sum, item) => sum + item.quantity, 0),
+        shippingAddress: `${addressLine}, ${city}, ${state} - ${cleanPincode}`,
+      });
+      clearCart();
+    } catch (err) {
+      setErrorMessage((err as Error).message || 'Failed to place order. Please review your details.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -136,6 +151,25 @@ export default function CheckoutPage() {
             <form onSubmit={handleSubmit} className={styles.layout}>
               {/* Form columns */}
               <div>
+                {errorMessage && (
+                  <div
+                    role="alert"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '12px 16px',
+                      background: '#fef2f2',
+                      border: '1px solid #fecaca',
+                      borderRadius: 8,
+                      color: '#b91c1c',
+                      marginBottom: 16,
+                    }}
+                  >
+                    <AlertCircle size={18} />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
                 <div className={styles.formSection}>
                   <h2 className={styles.sectionTitle}>1. Buyer Details</h2>
                   <div className={styles.formGrid}>
@@ -315,8 +349,8 @@ export default function CheckoutPage() {
                   <span>{formatPaise(grandTotalPaise)}</span>
                 </div>
 
-                <button type="submit" className={styles.placeOrderBtn}>
-                  Complete Demo Order ({formatPaise(grandTotalPaise)})
+                <button type="submit" disabled={isSubmitting} className={styles.placeOrderBtn}>
+                  {isSubmitting ? 'Processing Order...' : `Complete Demo Order (${formatPaise(grandTotalPaise)})`}
                 </button>
 
                 <p className={styles.disclaimer}>
