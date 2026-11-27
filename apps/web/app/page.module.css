@@ -1,207 +1,767 @@
+
+/* ==========================================
+   CRAFTSURE AI - HOMEPAGE
+   Premium Heritage Theme
+========================================== */
+
 .main {
-  min-height: calc(100vh - var(--header-height));
-  padding-block: var(--space-12) var(--space-20);
+  min-height: 100vh;
+  background: #faf8f2;
 }
+
+/* ==========================================
+   HERO SECTION
+========================================== */
 
 .hero {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-  max-width: 780px;
-  margin-bottom: var(--space-16);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  align-items: center;
+  gap: 55px;
+  min-height: 570px;
+  padding: 65px 0 75px;
+  overflow: hidden;
 }
 
-.heroBadgeWrapper {
-  display: flex;
-  gap: var(--space-2);
-  align-items: center;
-  flex-wrap: wrap;
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
 }
+
+/* Eyebrow */
+
+.heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  color: #a66a4c;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.heroDot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  background: #a66a4c;
+  border-radius: 50%;
+}
+
+/* Heading */
 
 .heroTitle {
-  font-size: var(--text-5xl);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--leading-tight);
-  color: var(--color-text-primary);
-  letter-spacing: -0.02em;
+  margin: 0;
+  color: #244c3a;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.8rem, 4.7vw, 4.5rem);
+  line-height: 1.13;
+  font-weight: 500;
+  letter-spacing: -2px;
 }
 
-.heroAccent {
-  color: var(--color-brand);
+.heroTitle span {
+  display: block;
+  margin-top: 10px;
+  color: #a65e49;
+  font-style: italic;
 }
+
+/* Description */
 
 .heroDescription {
-  font-size: var(--text-lg);
-  color: var(--color-text-secondary);
-  line-height: var(--leading-relaxed);
-  max-width: 65ch;
+  max-width: 535px;
+  margin: 24px 0 0;
+  color: #68685f;
+  font-size: 1rem;
+  line-height: 1.9;
 }
+
+/* ==========================================
+   HERO BUTTONS
+========================================== */
 
 .heroActions {
   display: flex;
-  gap: var(--space-4);
   align-items: center;
   flex-wrap: wrap;
-  margin-top: var(--space-2);
+  gap: 14px;
+  margin-top: 32px;
 }
 
-.primaryButton {
+.heroPrimaryBtn,
+.heroSecondaryBtn {
+  min-height: 50px;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-6);
-  background-color: var(--color-brand);
-  color: #ffffff;
-  border-radius: var(--radius-md);
-  font-weight: var(--font-weight-medium);
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 22px;
+  border-radius: 10px;
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-.primaryButton:hover {
-  opacity: 0.92;
+.heroPrimaryBtn {
+  background: #244c3a;
+  border: 1px solid #244c3a;
+  color: #fffdf8;
 }
 
-.secondaryButton {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-3) var(--space-6);
-  background-color: var(--color-surface-1);
-  color: var(--color-text-primary);
-  border: 1px solid var(--color-surface-2);
-  border-radius: var(--radius-md);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
+.heroPrimaryBtn:hover {
+  background: #315b42;
+  border-color: #315b42;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(36, 76, 58, 0.16);
 }
 
-.secondaryButton:hover {
-  background-color: var(--color-surface-2);
+.heroPrimaryBtn span {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
 }
 
-.featuredSection {
-  margin-bottom: var(--space-16);
+.heroPrimaryBtn:hover span {
+  transform: translateX(4px);
 }
 
-.sectionHeader {
+.heroSecondaryBtn {
+  background: transparent;
+  border: 1px solid #d8d3c6;
+  color: #244c3a;
+}
+
+.heroSecondaryBtn:hover {
+  background: #f0eee6;
+  border-color: #244c3a;
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   HERO STATS
+========================================== */
+
+.heroStats {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: var(--space-8);
-  flex-wrap: wrap;
-  gap: var(--space-4);
+  align-items: center;
+  gap: 25px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #e7e1d6;
 }
 
-.sectionTitle {
-  font-size: var(--text-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-}
-
-.sectionSubtitle {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  margin-top: var(--space-1);
-}
-
-.viewAllLink {
-  color: var(--color-brand);
-  font-weight: var(--font-weight-semibold);
-  text-decoration: none;
-}
-
-.craftsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: var(--space-6);
-}
-
-.craftCard {
-  background-color: var(--color-surface-1);
-  border: 1px solid var(--color-surface-2);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
+.heroStat {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  gap: 6px;
 }
 
-.craftCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+.heroStat strong {
+  color: #244c3a;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
 }
 
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.heroStat span {
+  color: #77746a;
+  font-size: 0.72rem;
+  line-height: 1.5;
 }
 
-.craftName {
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-}
-
-.craftCategory {
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-text-muted);
-}
-
-.craftDescription {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  line-height: var(--leading-relaxed);
-  flex-grow: 1;
-}
-
-.cardLink {
-  color: var(--color-brand);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--text-sm);
-  text-decoration: none;
-  margin-top: var(--space-2);
-}
-
-.assuranceSection {
-  margin-bottom: var(--space-16);
-}
-
-.assuranceCard {
-  background-color: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  display: flex;
-  gap: var(--space-4);
-  align-items: flex-start;
-}
-
-.assuranceIcon {
-  color: #059669;
+.heroStatDivider {
+  width: 1px;
+  height: 38px;
   flex-shrink: 0;
-  margin-top: var(--space-1);
+  background: #e1d9cb;
 }
 
-.assuranceTitle {
-  font-size: var(--text-lg);
-  font-weight: var(--font-weight-semibold);
-  color: #065f46;
-  margin-bottom: var(--space-1);
+/* ==========================================
+   HERO RIGHT VISUAL
+========================================== */
+
+.heroVisual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 450px;
 }
 
-.assuranceText {
-  font-size: var(--text-sm);
-  color: #047857;
-  line-height: var(--leading-relaxed);
+/* Background circle */
+
+.heroDecorCircle {
+  position: absolute;
+  width: 390px;
+  height: 390px;
+  border-radius: 50%;
+  background: #eee8d9;
+  opacity: 0.75;
 }
 
-@media (max-width: 640px) {
+/* Craft Panel */
+
+.heroCraftPanel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 380px);
+  padding: 26px;
+  background: #fffdf8;
+  border: 1px solid #e7ddcc;
+  border-radius: 22px;
+  box-shadow: 0 25px 70px rgba(60, 55, 40, 0.1);
+  transform: rotate(2deg);
+  transition: transform 0.35s ease;
+}
+
+.heroCraftPanel:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.heroPanelLabel {
+  display: block;
+  text-align: center;
+  color: #a66a4c;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* ==========================================
+   CSS CRAFT ARTWORK
+========================================== */
+
+.heroCraftArtwork {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 270px;
+  margin: 15px 0;
+  background: radial-gradient(
+    circle at center,
+    #f7f0df 0%,
+    #eee4d0 65%,
+    #e8ddc9 100%
+  );
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Outer circle */
+
+.artOuterCircle {
+  width: 205px;
+  height: 205px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #a66a4c;
+  border-radius: 50%;
+  background: #e9d8bc;
+  box-shadow:
+    0 0 0 9px rgba(166, 106, 76, 0.08),
+    0 0 0 18px rgba(166, 106, 76, 0.05);
+}
+
+/* Inner circle */
+
+.artInnerCircle {
+  position: relative;
+  width: 165px;
+  height: 165px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #a66a4c;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    #d9bc91 0deg 12deg,
+    #e8d8bd 12deg 24deg
+  );
+}
+
+/* Central motif */
+
+.artCenter {
+  width: 85px;
+  height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff6e5;
+  font-size: 2.6rem;
+  background: #315b42;
+  border: 4px double #d6b781;
+  box-shadow: 0 5px 18px rgba(36, 76, 58, 0.15);
+}
+
+/* Motif decorations */
+
+.artTop,
+.artRight,
+.artBottom,
+.artLeft {
+  position: absolute;
+  color: #a65e49;
+  font-size: 1.3rem;
+}
+
+.artTop {
+  top: 10px;
+}
+
+.artBottom {
+  bottom: 10px;
+}
+
+.artRight {
+  right: 10px;
+}
+
+.artLeft {
+  left: 10px;
+}
+
+/* Side ornaments */
+
+.artSideDecoration {
+  position: absolute;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #a66a4c;
+  font-size: 1.3rem;
+}
+
+.artSideDecoration span:nth-child(2) {
+  color: #315b42;
+}
+
+/* Craft panel footer */
+
+.heroCraftInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding-top: 18px;
+  border-top: 1px solid #e8e0d3;
+}
+
+.heroCraftSmall {
+  display: block;
+  color: #a66a4c;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.heroCraftInfo h2 {
+  margin: 8px 0 0;
+  color: #244c3a;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.heroCraftNumber {
+  color: #b8a68b;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.8rem;
+}
+
+/* ==========================================
+   FLOATING CARD
+========================================== */
+
+.heroFloatingCard {
+  position: absolute;
+  z-index: 3;
+  bottom: 22px;
+  left: -12px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px 18px;
+  background: #fffdf8;
+  border: 1px solid #e8e0d3;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(36, 76, 58, 0.09);
+}
+
+.floatingIcon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9efe6;
+  color: #315b42;
+  border-radius: 10px;
+  font-size: 1.3rem;
+}
+
+.heroFloatingCard div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.heroFloatingCard strong {
+  color: #244c3a;
+  font-size: 0.8rem;
+}
+
+.heroFloatingCard div span {
+  color: #77746a;
+  font-size: 0.7rem;
+}
+
+/* Vertical decorative text */
+
+.heroVerticalText {
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center;
+  color: #a99a7d;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   TABLET RESPONSIVE
+========================================== */
+
+@media (max-width: 1050px) {
+  .hero {
+    gap: 35px;
+  }
+
   .heroTitle {
-    font-size: var(--text-3xl);
+    font-size: clamp(2.7rem, 5vw, 3.8rem);
+  }
+
+  .heroDecorCircle {
+    width: 320px;
+    height: 320px;
+  }
+
+  .heroCraftPanel {
+    padding: 20px;
+  }
+
+  .heroFloatingCard {
+    left: -5px;
   }
 }
+
+/* ==========================================
+   SMALL TABLETS
+========================================== */
+
+@media (max-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    min-height: auto;
+    padding: 45px 0 55px;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  .heroTitle {
+    max-width: 680px;
+    font-size: clamp(2.7rem, 8vw, 4rem);
+  }
+
+  .heroDescription {
+    max-width: 600px;
+  }
+
+  .heroVisual {
+    min-height: 400px;
+  }
+
+  .heroCraftPanel {
+    width: min(100%, 390px);
+  }
+
+  .heroVerticalText {
+    right: 0;
+  }
+
+  .heroFloatingCard {
+    left: max(0px, calc(50% - 210px));
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 560px) {
+  .hero {
+    padding: 35px 0 45px;
+    gap: 15px;
+  }
+
+  .heroEyebrow {
+    margin-bottom: 18px;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+  }
+
+  .heroTitle {
+    font-size: 2.65rem;
+    line-height: 1.15;
+    letter-spacing: -1.3px;
+  }
+
+  .heroTitle span {
+    margin-top: 7px;
+  }
+
+  .heroDescription {
+    margin-top: 18px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  /* Buttons */
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 11px;
+    margin-top: 25px;
+  }
+
+  .heroPrimaryBtn,
+  .heroSecondaryBtn {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 48px;
+  }
+
+  /* Stats */
+
+  .heroStats {
+    gap: 13px;
+    margin-top: 30px;
+    padding-top: 19px;
+  }
+
+  .heroStat {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .heroStat strong {
+    font-size: 0.95rem;
+  }
+
+  .heroStat span {
+    font-size: 0.64rem;
+    line-height: 1.4;
+  }
+
+  .heroStatDivider {
+    height: 32px;
+  }
+
+  /* Visual */
+
+  .heroVisual {
+    min-height: 350px;
+  }
+
+  .heroDecorCircle {
+    width: 285px;
+    height: 285px;
+  }
+
+  .heroCraftPanel {
+    width: min(100%, 340px);
+    padding: 17px;
+    border-radius: 18px;
+  }
+
+  .heroCraftArtwork {
+    min-height: 230px;
+  }
+
+  .artOuterCircle {
+    width: 175px;
+    height: 175px;
+  }
+
+  .artInnerCircle {
+    width: 140px;
+    height: 140px;
+  }
+
+  .artCenter {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  .heroCraftInfo h2 {
+    font-size: 0.95rem;
+  }
+
+  .heroCraftNumber {
+    font-size: 1.4rem;
+  }
+
+  /* Floating card */
+
+  .heroFloatingCard {
+    bottom: 0;
+    left: 0;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .heroFloatingCard strong {
+    font-size: 0.75rem;
+  }
+
+  .heroFloatingCard div span {
+    font-size: 0.65rem;
+  }
+
+  .heroVerticalText {
+    display: none;
+  }
+}
+
+/* ==========================================
+   EXTRA SMALL MOBILE
+========================================== */
+
+@media (max-width: 380px) {
+  .heroTitle {
+    font-size: 2.3rem;
+  }
+
+  .heroStats {
+    gap: 8px;
+  }
+
+  .heroCraftPanel {
+    padding: 13px;
+  }
+
+  .heroFloatingCard {
+    gap: 9px;
+  }
+
+  .heroFloatingCard strong {
+    font-size: 0.72rem;
+  }
+
+  .heroFloatingCard div span {
+    font-size: 0.64rem;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .heroPrimaryBtn,
+  .heroSecondaryBtn,
+  .heroPrimaryBtn span,
+  .heroCraftPanel {
+    transition: none;
+  }
+}
+/* ===== HERO ARTWORK OVERLAP FIX ===== */
+
+.heroVisual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: auto;
+  padding: 30px 20px;
+}
+
+.heroCraftPanel {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.heroFloatingCard {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  top: auto !important;
+  margin-top: 5px;
+  align-self: flex-start;
+  z-index: 2;
+}
+
+@media (max-width: 800px) {
+  .heroVisual {
+    width: 100%;
+    padding: 20px 10px;
+  }
+
+  .heroFloatingCard {
+    align-self: center;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroVisual {
+    padding: 15px 5px;
+    gap: 15px;
+  }
+
+  .heroCraftPanel {
+    max-width: 100%;
+  }
+
+  .heroFloatingCard {
+    position: relative !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+  }
+}
+
+
+
+
+
+
