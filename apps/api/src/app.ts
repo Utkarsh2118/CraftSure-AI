@@ -1,14 +1,14 @@
 import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import type { ApiResponse } from '@craftsure/shared-types';
-import { districtsRouter } from './routes/districts';
-import { craftsRouter } from './routes/crafts';
-import { productsRouter } from './routes/products';
-import { aiRouter } from './routes/ai';
-import { authRouter } from './routes/auth';
-import { ordersRouter } from './routes/orders';
-import { artisansRouter } from './routes/artisans';
-import { adminRouter } from './routes/admin';
+import { districtsRouter } from './modules/districts';
+import { craftsRouter } from './modules/crafts';
+import { productsRouter } from './modules/products';
+import { aiRouter } from './modules/ai';
+import { authRouter } from './modules/auth';
+import { ordersRouter } from './modules/orders';
+import { artisansRouter } from './modules/artisans';
+import { adminRouter } from './modules/admin';
 import { authenticateToken } from './middleware/authenticate';
 
 export function createApp(): express.Express {

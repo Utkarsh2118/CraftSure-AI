@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import request from 'supertest';
-import { createApp } from '../app';
+import { createApp } from '../../app';
 
 describe('Admin Verification & Audit API routes with Persistence', () => {
   const app = createApp();

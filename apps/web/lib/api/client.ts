@@ -521,3 +521,6 @@ export const api = {
     };
   },
 };
+
+export const apiClient = api;
+export default api;

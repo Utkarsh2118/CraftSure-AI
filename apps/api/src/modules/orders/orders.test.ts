@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import request from 'supertest';
-import { createApp } from '../app';
+import { createApp } from '../../app';
 
 describe('Orders API routes with PostgreSQL Persistence', () => {
   const app = createApp();

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import request from 'supertest';
-import { createApp } from '../app';
+import { createApp } from '../../app';
 
 describe('Auth API Routes (/api/auth)', () => {
   const app = createApp();
