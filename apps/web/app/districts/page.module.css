@@ -1,236 +1,403 @@
+
 .main {
   min-height: calc(100vh - var(--header-height));
-  padding-bottom: var(--space-24);
-  background-color: var(--color-background);
+  background: #faf7f0;
+  padding: 48px 0 80px;
+  color: #294b35;
 }
 
+/* Header */
 .header {
-  padding: var(--space-12) 0 var(--space-8);
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: var(--space-8);
+  margin-bottom: 38px;
 }
 
 .breadcrumbs {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #8a897e;
+  margin-bottom: 22px;
 }
 
 .breadcrumbs a {
-  color: var(--color-text-muted);
+  color: #52765a;
   text-decoration: none;
-  transition: color var(--transition-fast);
+  transition: color 0.2s ease;
 }
 
 .breadcrumbs a:hover {
-  color: var(--color-primary);
+  color: #a8613e;
 }
 
 .title {
-  font-family: var(--font-display), serif;
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
-  font-weight: 600;
-  color: var(--color-text-primary);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(34px, 5vw, 52px);
   line-height: 1.15;
-  margin-bottom: var(--space-3);
+  letter-spacing: -1.5px;
+  font-weight: 600;
+  color: #294b35;
+  margin: 0 0 16px;
 }
 
 .subtitle {
-  font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
-  max-width: 68ch;
-  line-height: 1.6;
+  max-width: 760px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #74766c;
+  margin: 0;
 }
 
+/* Search & Filters */
 .controls {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  margin-bottom: var(--space-8);
-}
-
-@media (min-width: 768px) {
-  .controls {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
+  gap: 22px;
+  margin-bottom: 34px;
 }
 
 .searchBox {
+  width: 100%;
+  max-width: 520px;
   position: relative;
-  max-width: 380px;
-  width: 100%;
-}
-
-.searchInput {
-  width: 100%;
-  padding: 0.65rem 1rem 0.65rem 2.5rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  font-size: var(--font-size-sm);
-  background: var(--color-surface);
-  color: var(--color-text-primary);
-  outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.searchInput:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-primary-subtle);
 }
 
 .searchIcon {
   position: absolute;
-  left: 0.75rem;
+  left: 17px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--color-text-muted);
+  color: #829080;
   pointer-events: none;
 }
 
+.searchInput {
+  width: 100%;
+  height: 52px;
+  padding: 0 18px 0 48px;
+  border: 1px solid #e5e0d5;
+  border-radius: 14px;
+  background: #fff;
+  color: #294b35;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.searchInput::placeholder {
+  color: #a3a398;
+}
+
+.searchInput:focus {
+  border-color: #64836a;
+  box-shadow: 0 0 0 3px rgba(41, 75, 53, 0.08);
+}
+
+/* Division Tabs */
 .divisionTabs {
   display: flex;
+  align-items: center;
+  gap: 9px;
   flex-wrap: wrap;
-  gap: var(--space-2);
 }
 
 .tabButton {
-  padding: 0.4rem 0.85rem;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-xs);
+  border: 1px solid #e3dfd4;
+  background: #fff;
+  color: #666b60;
+  border-radius: 30px;
+  padding: 10px 17px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.2s ease;
 }
 
 .tabButton:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  border-color: #77917a;
+  background: #f2f5ef;
+  color: #294b35;
 }
 
 .activeTab {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background: #294b35;
+  border-color: #294b35;
   color: #fff;
 }
 
 .activeTab:hover {
-  background: var(--color-primary-hover);
+  background: #355b40;
   color: #fff;
+  border-color: #355b40;
 }
 
+/* District Grid */
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
 }
 
-@media (min-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
+/* District Card */
 .card {
+  background: #fff;
+  border: 1px solid #e9e4d9;
+  border-radius: 20px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  transition: transform var(--transition-base), box-shadow var(--transition-base),
-    border-color var(--transition-base);
+  min-height: 285px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-primary);
+  transform: translateY(-5px);
+  border-color: #d2d9cb;
+  box-shadow: 0 14px 35px rgba(41, 75, 53, 0.08);
 }
 
 .cardTop {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .districtName {
-  font-family: var(--font-display), serif;
-  font-size: var(--font-size-xl);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 25px;
   font-weight: 600;
-  color: var(--color-text-primary);
+  line-height: 1.3;
+  color: #294b35;
+  margin: 0;
 }
 
+/* Overview */
 .cardOverview {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  line-height: 1.55;
-  margin-bottom: var(--space-4);
-  flex-grow: 1;
+  color: #74766c;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0 0 22px;
 }
 
+/* Craft Section */
 .craftsSection {
   margin-top: auto;
-  padding-top: var(--space-4);
-  border-top: 1px dashed var(--color-border);
+  padding-top: 17px;
+  border-top: 1px solid #f0ece4;
 }
 
 .craftsLabel {
   display: block;
-  font-size: var(--font-size-xs);
-  font-weight: 600;
+  color: #a8613e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-2);
+  margin-bottom: 12px;
 }
 
 .craftPills {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-bottom: var(--space-4);
+  gap: 8px;
+  margin-bottom: 22px;
 }
 
+/* Card Footer */
 .cardFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: var(--space-3);
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .cardLink {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  font-size: var(--font-size-sm);
+  gap: 7px;
+  color: #294b35;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--color-primary);
   text-decoration: none;
-  transition: gap var(--transition-fast);
+  transition: color 0.2s ease, gap 0.2s ease;
 }
 
 .cardLink:hover {
-  gap: var(--space-2);
+  color: #a8613e;
+  gap: 11px;
 }
 
 .odopBadge {
-  font-size: 0.7rem;
-  color: var(--color-text-muted);
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
+  color: #8a897e;
+  font-size: 11px;
+  text-decoration: none;
+  border: 1px solid #e9e5db;
+  border-radius: 30px;
+  padding: 6px 10px;
+  transition: all 0.2s ease;
 }
+
+.odopBadge:hover {
+  color: #a8613e;
+  border-color: #d8b8a6;
+  background: #fbf5f0;
+}
+
+/* Empty State */
+.grid:empty {
+  display: none;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .card {
+    padding: 22px;
+  }
+}
+
+/* Small Tablet */
+@media (max-width: 768px) {
+  .main {
+    padding: 35px 0 60px;
+  }
+
+  .header {
+    margin-bottom: 28px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .controls {
+    gap: 18px;
+    margin-bottom: 26px;
+  }
+
+  .divisionTabs {
+    gap: 8px;
+  }
+
+  .tabButton {
+    padding: 9px 13px;
+    font-size: 12px;
+  }
+
+  .grid {
+    gap: 15px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 17px;
+  }
+
+  .districtName {
+    font-size: 22px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+  .main {
+    padding: 25px 0 48px;
+  }
+
+  .breadcrumbs {
+    margin-bottom: 16px;
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 31px;
+    letter-spacing: -0.8px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .searchInput {
+    height: 48px;
+    font-size: 13px;
+  }
+
+  .divisionTabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+
+  .tabButton {
+    flex-shrink: 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .card {
+    min-height: auto;
+    padding: 21px;
+  }
+
+  .cardTop {
+    gap: 10px;
+  }
+
+  .districtName {
+    font-size: 24px;
+  }
+
+  .cardOverview {
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+
+  .craftPills {
+    margin-bottom: 18px;
+  }
+
+  .cardFooter {
+    gap: 10px;
+  }
+}
+
+/* Very Small Screens */
+@media (max-width: 380px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .card {
+    padding: 17px;
+  }
+
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 
