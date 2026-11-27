@@ -1,0 +1,758 @@
+/* =========================================
+   CRAFTSURE AI - SIGN IN PAGE
+   Premium cream, forest green & terracotta
+========================================= */
+
+.main {
+  min-height: calc(100vh - var(--header-height, 64px));
+  background: #f7f4ed;
+  padding: 55px 24px 35px;
+  color: #29251f;
+}
+
+.pageContainer {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* MAIN CARD */
+
+.signInCard {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  min-height: 650px;
+  background: #ffffff;
+  border: 1px solid #e8e1d6;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(44, 41, 32, 0.08);
+}
+
+/* =========================================
+   BRAND PANEL
+========================================= */
+
+.brandPanel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 48px 42px 32px;
+  color: #ffffff;
+  background:
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(190, 157, 105, 0.2),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      #345b41 0%,
+      #294b35 48%,
+      #1f3929 100%
+    );
+}
+
+.brandPanel::before {
+  content: "";
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  right: -150px;
+  bottom: -110px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+}
+
+.brandPanel::after {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  right: -100px;
+  bottom: -60px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 50%;
+}
+
+.brandContent,
+.brandFooter {
+  position: relative;
+  z-index: 1;
+}
+
+.brandBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  padding: 10px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.19);
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 50px;
+  color: #e9d7b9;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+}
+
+.brandTitle {
+  margin-top: 55px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(37px, 4vw, 54px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  color: #ffffff;
+}
+
+.brandTitle span {
+  color: #d8b58b;
+  font-style: italic;
+}
+
+.brandDescription {
+  max-width: 390px;
+  margin-top: 22px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.brandDivider {
+  width: 55px;
+  height: 2px;
+  margin: 32px 0;
+  background: #c89c70;
+}
+
+.brandFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.brandFeature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.featureIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  color: #e5c49c;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brandFeature h3 {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 5px;
+}
+
+.brandFeature p {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: none;
+}
+
+.brandFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 45px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.brandFooter span:first-child {
+  color: #e3c39c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.brandFooter span:last-child {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11px;
+}
+
+/* =========================================
+   FORM PANEL
+========================================= */
+
+.formPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 55px 55px;
+  background: #ffffff;
+}
+
+.formHeader {
+  margin-bottom: 35px;
+}
+
+.formEyebrow {
+  display: inline-block;
+  color: #a8613e;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.formTitle {
+  margin: 12px 0 0;
+  color: #29251f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.formSubtitle {
+  margin-top: 12px;
+  color: #77746c;
+  font-size: 13px;
+  line-height: 1.75;
+  max-width: none;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.label {
+  color: #38342e;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.forgotLink {
+  color: #a8613e;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.forgotLink:hover {
+  color: #82452d;
+}
+
+/* INPUT */
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 51px;
+  border: 1px solid #e5dfd6;
+  border-radius: 9px;
+  background: #fcfbf9;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: #54745b;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(41, 75, 53, 0.08);
+}
+
+.inputIcon {
+  flex-shrink: 0;
+  margin-left: 15px;
+  color: #9a9286;
+}
+
+.input {
+  width: 100%;
+  min-width: 0;
+  height: 49px;
+  padding: 0 13px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #29251f;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.input::placeholder {
+  color: #aaa39a;
+}
+
+.passwordToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 48px;
+  color: #8d877d;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.passwordToggle:hover {
+  color: #294b35;
+}
+
+/* =========================================
+   ROLE SELECTOR
+========================================= */
+
+.roleSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.roleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.roleHint {
+  color: #a39b91;
+  font-size: 10px;
+}
+
+.roleGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.roleBtn {
+  min-height: 39px;
+  padding: 9px 10px;
+  border: 1px solid #e8e2d9;
+  border-radius: 8px;
+  background: #faf9f6;
+  color: #716a60;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.roleBtn:hover {
+  border-color: #9eae9f;
+  color: #294b35;
+}
+
+.roleBtnActive {
+  background: #edf2eb;
+  border-color: #54745b;
+  color: #294b35;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px #54745b;
+}
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.submitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  width: 100%;
+  min-height: 51px;
+  margin-top: 3px;
+  padding: 14px 20px;
+  border: 1px solid #294b35;
+  border-radius: 9px;
+  background: #294b35;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.submitBtn:hover {
+  background: #1e3928;
+  box-shadow: 0 7px 16px rgba(41, 75, 53, 0.16);
+  transform: translateY(-1px);
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+}
+
+/* =========================================
+   SECURITY NOTE
+========================================= */
+
+.secureNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #8a887e;
+  font-size: 10px;
+  margin-top: -6px;
+}
+
+.secureNote svg {
+  flex-shrink: 0;
+  color: #66806a;
+}
+
+/* =========================================
+   SIGN UP FOOTER
+========================================= */
+
+.bottomText {
+  margin-top: 27px;
+  padding-top: 22px;
+  border-top: 1px solid #eee9e2;
+  text-align: center;
+  color: #77746c;
+  font-size: 12px;
+}
+
+.signupLink {
+  color: #294b35;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.signupLink:hover {
+  color: #a8613e;
+}
+
+/* =========================================
+   SUCCESS STATE
+========================================= */
+
+.successBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.successIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  margin-bottom: 24px;
+  border-radius: 50%;
+  color: #294b35;
+  background: #edf3eb;
+  border: 1px solid #dce8d9;
+}
+
+.successBox .formTitle {
+  font-size: 29px;
+}
+
+.successText {
+  margin-top: 15px;
+  color: #77746c;
+  font-size: 13px;
+  max-width: none;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 22px;
+  border: 1px solid #e8e2d9;
+  border-radius: 12px;
+  background: #faf9f6;
+}
+
+.userEmail {
+  color: #38342e;
+  font-size: 13px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.roleBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border-radius: 30px;
+  background: #edf2eb;
+  color: #294b35;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.rbacNotice {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  width: 100%;
+  margin-top: 22px;
+  padding: 15px;
+  border: 1px solid #e7e1d6;
+  border-radius: 10px;
+  background: #f7f4ed;
+  text-align: left;
+}
+
+.rbacNotice svg {
+  flex-shrink: 0;
+  color: #54745b;
+}
+
+.rbacNotice p {
+  margin: 0;
+  color: #716a60;
+  font-size: 11px;
+  line-height: 1.7;
+  max-width: none;
+}
+
+.successActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 25px;
+}
+
+.secondaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 1px solid #294b35;
+  border-radius: 9px;
+  color: #294b35;
+  background: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.secondaryBtn:hover {
+  background: #edf2eb;
+}
+
+/* =========================================
+   COPYRIGHT
+========================================= */
+
+.copyright {
+  margin: 23px auto 0;
+  text-align: center;
+  color: #a39b91;
+  font-size: 10px;
+  max-width: none;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .main {
+    padding: 35px 20px;
+  }
+
+  .signInCard {
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+
+  .brandPanel {
+    padding: 38px 28px 28px;
+  }
+
+  .brandTitle {
+    font-size: 42px;
+    margin-top: 38px;
+  }
+
+  .formPanel {
+    padding: 40px 35px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+  .main {
+    padding: 22px 14px 30px;
+  }
+
+  .signInCard {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    border-radius: 17px;
+  }
+
+  .brandPanel {
+    padding: 28px 25px;
+    min-height: auto;
+  }
+
+  .brandTitle {
+    margin-top: 28px;
+    font-size: 38px;
+  }
+
+  .brandDescription {
+    margin-top: 15px;
+    font-size: 13px;
+  }
+
+  .brandDivider {
+    margin: 23px 0;
+  }
+
+  .brandFeatures {
+    gap: 16px;
+  }
+
+  .brandFeature h3 {
+    font-size: 12px;
+  }
+
+  .brandFeature p {
+    font-size: 10px;
+  }
+
+  .brandFooter {
+    margin-top: 28px;
+    padding-top: 16px;
+  }
+
+  .formPanel {
+    padding: 34px 25px 30px;
+  }
+
+  .formHeader {
+    margin-bottom: 27px;
+  }
+
+  .formTitle {
+    font-size: 28px;
+  }
+
+  .form {
+    gap: 20px;
+  }
+
+  .bottomText {
+    margin-top: 23px;
+    padding-top: 20px;
+  }
+
+  .copyright {
+    font-size: 9px;
+    margin-top: 18px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .main {
+    padding-inline: 10px;
+  }
+
+  .brandPanel {
+    padding: 24px 20px;
+  }
+
+  .brandTitle {
+    font-size: 34px;
+  }
+
+  .formPanel {
+    padding: 28px 19px;
+  }
+
+  .formTitle {
+    font-size: 25px;
+  }
+
+  .roleBtn {
+    font-size: 10px;
+    padding-inline: 6px;
+  }
+}
+
+
+/* =========================================
+   SIGNUP EXTRA UTILITIES
+========================================= */
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #fdf2f2;
+  border: 1px solid #f8b4b4;
+  border-radius: 9px;
+  color: #9b1c1c;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
