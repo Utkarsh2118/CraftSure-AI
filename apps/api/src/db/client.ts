@@ -39,6 +39,8 @@ const queryClient = postgres(connectionString, {
   prepare: false,
   max: Number.isNaN(poolSize) || poolSize <= 0 ? 10 : poolSize,
   ssl: isLocal ? false : 'require',
+  connect_timeout: process.env['NODE_ENV'] === 'test' ? 1 : 10,
+  idle_timeout: 5,
 });
 
 export { queryClient };

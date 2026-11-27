@@ -58,7 +58,18 @@ export class PaymentsService {
     priceInPaise: number;
     imageUrl: string | null;
   }> {
-    // 1. Check PostgreSQL database first
+    // 1. Check in-memory demo catalogue first for instant resolution
+    const demoProd = DEMO_PRODUCTS.find((p) => p.id === productId);
+    if (demoProd) {
+      return {
+        id: demoProd.id,
+        title: demoProd.title,
+        priceInPaise: demoProd.priceInPaise,
+        imageUrl: demoProd.images[0]?.url ?? null,
+      };
+    }
+
+    // 2. Check PostgreSQL database for dynamic products
     try {
       const [dbProduct] = await db
         .select()
@@ -75,17 +86,6 @@ export class PaymentsService {
       }
     } catch {
       // Offline fallback
-    }
-
-    // 2. Check in-memory demo catalogue
-    const demoProd = DEMO_PRODUCTS.find((p) => p.id === productId);
-    if (demoProd) {
-      return {
-        id: demoProd.id,
-        title: demoProd.title,
-        priceInPaise: demoProd.priceInPaise,
-        imageUrl: demoProd.images[0]?.url ?? null,
-      };
     }
 
     throw new PaymentError(
@@ -190,40 +190,42 @@ export class PaymentsService {
 
     // Persist to PostgreSQL if available
     try {
-      await db
-        .insert(ordersTable)
-        .values({
-          id: pendingOrder.id,
-          buyerId: null,
-          buyerName: payload.buyerName,
-          buyerEmail: payload.buyerEmail,
-          buyerPhone: payload.buyerPhone,
-          status: 'pending',
-          shippingAddressLine1: payload.shippingAddress.line1,
-          shippingAddressLine2: payload.shippingAddress.line2 ?? null,
-          shippingCity: payload.shippingAddress.city,
-          shippingState: payload.shippingAddress.state,
-          shippingPincode: payload.shippingAddress.pincode,
-          shippingCountry: payload.shippingAddress.country ?? 'India',
-          subtotalInPaise: subtotalPaise,
-          deliveryInPaise: deliveryPaise,
-          totalInPaise,
-          paymentMethod: 'razorpay',
-          paymentStatus: 'pending',
-          razorpayOrderId,
-        })
-        .onConflictDoNothing();
+      await db.transaction(async (tx) => {
+        await tx
+          .insert(ordersTable)
+          .values({
+            id: pendingOrder.id,
+            buyerId: null,
+            buyerName: payload.buyerName,
+            buyerEmail: payload.buyerEmail,
+            buyerPhone: payload.buyerPhone,
+            status: 'pending',
+            shippingAddressLine1: payload.shippingAddress.line1,
+            shippingAddressLine2: payload.shippingAddress.line2 ?? null,
+            shippingCity: payload.shippingAddress.city,
+            shippingState: payload.shippingAddress.state,
+            shippingPincode: payload.shippingAddress.pincode,
+            shippingCountry: payload.shippingAddress.country ?? 'India',
+            subtotalInPaise: subtotalPaise,
+            deliveryInPaise: deliveryPaise,
+            totalInPaise,
+            paymentMethod: 'razorpay',
+            paymentStatus: 'pending',
+            razorpayOrderId,
+          })
+          .onConflictDoNothing();
 
-      for (const item of lineItemDetails) {
-        await db.insert(orderItemsTable).values({
-          orderId: pendingOrder.id,
-          productId: item.productId,
-          quantity: item.quantity,
-          snapshotPriceInPaise: item.snapshotPriceInPaise,
-          snapshotTitle: item.snapshotTitle,
-          snapshotImageUrl: item.snapshotImageUrl,
-        });
-      }
+        for (const item of lineItemDetails) {
+          await tx.insert(orderItemsTable).values({
+            orderId: pendingOrder.id,
+            productId: item.productId,
+            quantity: item.quantity,
+            snapshotPriceInPaise: item.snapshotPriceInPaise,
+            snapshotTitle: item.snapshotTitle,
+            snapshotImageUrl: item.snapshotImageUrl,
+          });
+        }
+      });
     } catch {
       // Persistence warning - in-memory fallback already registered
     }
