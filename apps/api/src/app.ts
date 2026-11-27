@@ -9,13 +9,20 @@ import { authRouter } from './modules/auth';
 import { ordersRouter } from './modules/orders';
 import { artisansRouter } from './modules/artisans';
 import { adminRouter } from './modules/admin';
+import { paymentsRouter } from './modules/payments';
 import { authenticateToken } from './middleware/authenticate';
 
 export function createApp(): express.Express {
   const app = express();
 
   // ── Middleware ───────────────────────────────────────────────────────────
-  app.use(express.json());
+  app.use(
+    express.json({
+      verify: (req, _res, buf) => {
+        (req as unknown as { rawBody?: Buffer }).rawBody = buf;
+      },
+    }),
+  );
   app.use(express.urlencoded({ extended: false }));
 
   // Basic CORS for dev — tighten in production via environment config
@@ -54,6 +61,7 @@ export function createApp(): express.Express {
   app.use('/api/orders', ordersRouter);
   app.use('/api/artisans', artisansRouter);
   app.use('/api/admin', adminRouter);
+  app.use('/api/payments', paymentsRouter);
 
   // ── 404 handler ──────────────────────────────────────────────────────────
   app.use((_req: Request, res: Response) => {

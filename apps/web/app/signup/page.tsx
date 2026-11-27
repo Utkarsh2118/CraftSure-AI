@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 
 import { Header } from '@/components/layout/Header/Header';
+import { GoogleButton } from '@/components/auth/GoogleButton';
 import type { UserRole } from '@craftsure/shared-types';
 import styles from './page.module.css';
 
@@ -141,6 +142,16 @@ export default function SignUpPage() {
                       <span>{error}</span>
                     </div>
                   )}
+
+                  <GoogleButton
+                    label="Sign up with Google"
+                    returnUrl="/browse"
+                    onError={(err) => setError(err)}
+                  />
+
+                  <div className={styles.divider}>
+                    <span>or sign up with email</span>
+                  </div>
 
                   <form
                     onSubmit={handleSubmit}

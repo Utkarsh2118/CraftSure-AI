@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Fraunces, Inter } from 'next/font/google';
+import { AuthProvider } from '@/lib/auth/AuthContext';
 import './globals.css';
 
 // ── Fonts ─────────────────────────────────────────────────────────────────────
@@ -56,7 +57,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-IN" className={`${fraunces.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
